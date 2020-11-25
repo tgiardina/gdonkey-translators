@@ -1,7 +1,7 @@
 [![tgiardina](https://circleci.com/gh/tgiardina/gdonkey-translators.svg?style=shield)](https://circleci.com/gh/tgiardina/gdonkey-translators.svg?style=shield)
 
 # gdonkey-translators
-Shims that translate complex site-dependent events into simple method calls that the GDonkey extension understands.
+Shims that translate complex site-dependent events into simple method calls that git the GDonkey extension understands.
 
 ## Want to use GDonkey with your favorite site?
 
