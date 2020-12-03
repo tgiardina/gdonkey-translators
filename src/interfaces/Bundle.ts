@@ -5,7 +5,7 @@ interface Translator<T> {
 }
 
 interface StaticTranslator<T> {
-  new(curator: Curator): Translator<T>;
+  new (curator: Curator): Translator<T>;
 }
 
 export default interface Bundle<T> {

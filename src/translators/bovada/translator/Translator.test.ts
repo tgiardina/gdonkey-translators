@@ -31,6 +31,9 @@ describe("translate function", () => {
       ...info,
     });
     expect(mockCurator.startNewProject).toBeCalledTimes(1);
+    expect(mockCurator.identifyPlayer).toBeCalledTimes(9);
+    for (let seat = 0; seat < 9; seat++)
+      expect(mockCurator.identifyPlayer).toBeCalledWith(seat);
     expect(mockCurator.identifyBlind).toBeCalledTimes(2);
     expect(mockCurator.identifyBlind).toBeCalledWith(BlindSize.Big, 5);
     expect(mockCurator.identifyBlind).toBeCalledWith(BlindSize.Small, 2);

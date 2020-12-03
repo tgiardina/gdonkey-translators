@@ -17,6 +17,7 @@ export default class Translator {
     const id = event.pid;
     if (id === GameEventId.GameType) {
       this.curator.startNewProject();
+      this.initPlayers();
       this.translateGameType(<gameEvent.GameType>event);
     } else if (id === GameEventId.Start) {
       this.translateStart(<gameEvent.Start>event);
@@ -45,6 +46,12 @@ export default class Translator {
     } else if (id === GameEventId.FinalStacks) {
       this.curator.exhibitGame();
       this.translateStacks(<gameEvent.FinalStacks>event);
+    }
+  }
+
+  private initPlayers(): void {
+    for (let seat = 0; seat < 9; seat++) {
+      this.curator.identifyPlayer(seat);
     }
   }
 
