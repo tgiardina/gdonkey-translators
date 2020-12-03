@@ -1,4 +1,4 @@
-import { ActionType, BlindSize } from "../../../enums";
+import { ActionType, BlindSize, BlindType } from "../../../enums";
 import { mockCurator } from "../../utils";
 import Translator from "./";
 import { GameEvent, GameEventId } from "../types";
@@ -127,8 +127,8 @@ describe("translate function", () => {
       pid: GameEventId.Blind,
       ...blind,
     });
-    expect(mockCurator.recordAction).toBeCalledTimes(1);
-    expect(mockCurator.recordAction).toBeCalledWith(6, ActionType.PostBlind, 2);
+    expect(mockCurator.recordBlind).toBeCalledTimes(1);
+    expect(mockCurator.recordBlind).toBeCalledWith(6, BlindType.PostBlind, 2);
   });
 
   it("should translate Blind Missed correctly", () => {
@@ -137,9 +137,9 @@ describe("translate function", () => {
       pid: GameEventId.Blind,
       ...blind,
     });
-    expect(mockCurator.recordAction).toBeCalledTimes(2);
-    expect(mockCurator.recordAction).toBeCalledWith(7, ActionType.PostBlind, 5);
-    expect(mockCurator.recordAction).toBeCalledWith(7, ActionType.Donate, 2);
+    expect(mockCurator.recordBlind).toBeCalledTimes(2);
+    expect(mockCurator.recordBlind).toBeCalledWith(7, BlindType.PostBlind, 5);
+    expect(mockCurator.recordBlind).toBeCalledWith(7, BlindType.Donate, 2);
   });
 
   it("should translate Pockets correctly", () => {
