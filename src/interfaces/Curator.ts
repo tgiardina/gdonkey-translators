@@ -1,4 +1,4 @@
-import { ActionType, BlindType } from "../enums";
+import { ActionType, BlindSize } from "../enums";
 import { Card } from "./";
 
 export default interface Curator {
@@ -20,7 +20,7 @@ export default interface Curator {
   /**
    * Overwrite the blind size.
    */
-  identifyBlind(type: BlindType, amount: number): void;
+  identifyBlind(type: BlindSize, amount: number): void;
 
   /**
    * Overwrite player at given seat. (Note: if `config.isAnon: true`, name will be ignored. Otherwise, it is required.)
@@ -75,5 +75,5 @@ export default interface Curator {
   /**
    * Present the current game.
    */
-  exhibitGame(): void;
+  exhibitGame(): Promise<void>;
 }

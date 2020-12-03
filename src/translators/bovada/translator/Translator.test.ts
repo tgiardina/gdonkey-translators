@@ -1,4 +1,4 @@
-import { ActionType, BlindType } from "../../../enums";
+import { ActionType, BlindSize } from "../../../enums";
 import { mockCurator } from "../../utils";
 import Translator from "./";
 import { GameEvent, GameEventId } from "../types";
@@ -32,8 +32,8 @@ describe("translate function", () => {
     });
     expect(mockCurator.startNewProject).toBeCalledTimes(1);
     expect(mockCurator.identifyBlind).toBeCalledTimes(2);
-    expect(mockCurator.identifyBlind).toBeCalledWith(BlindType.Big, 5);
-    expect(mockCurator.identifyBlind).toBeCalledWith(BlindType.Small, 2);
+    expect(mockCurator.identifyBlind).toBeCalledWith(BlindSize.Big, 5);
+    expect(mockCurator.identifyBlind).toBeCalledWith(BlindSize.Small, 2);
   });
 
   it("should translate Start correctly", () => {
