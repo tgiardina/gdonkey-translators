@@ -1,4 +1,4 @@
-import { ActionType, BlindSize } from "../enums";
+import { ActionType, BlindSize, BlindType } from "../enums";
 import { Card } from "./";
 
 export default interface Curator {
@@ -56,6 +56,11 @@ export default interface Curator {
    * Configures the game so the curator is ready for actions.
    */
   arrangeGame(): void;
+
+/**
+   * Record a blind for next exhibit.
+   */
+  recordBlind(seat: number, type: BlindType, amount: number): void;  
 
   /**
    * Record pocket cards for next exhibit.
