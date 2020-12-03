@@ -1,6 +1,6 @@
-enum BlindType {
+enum BlindSize {
   Big = "Big",
   Small = "Small",
 }
 
-export default BlindType;
+export default BlindSize;

@@ -67,6 +67,11 @@ export default interface Curator {
    */
   recordAction(seat: number, type: ActionType, amount?: number): void;
 
+/**
+   * Record an action for next exhibit (Note: This must be called after arrange)
+   */
+  recordAction(seat: number, type: ActionType, amount?: number): void;  
+
   /**
    * Collect board cards for next exhibit.
    */
