@@ -5,11 +5,11 @@ interface Translator<T> {
 }
 
 interface StaticTranslator<T> {
-  new (curator: Curator): Translator<T>;
+  new(curator: Curator): Translator<T>;
 }
 
 export default interface Bundle<T> {
   config: Config;
-  parse(event: string): T;
+  parse(event: string): T[];
   Translator: StaticTranslator<T>;
 }
