@@ -57,10 +57,10 @@ export default interface Curator {
    */
   arrangeGame(): void;
 
-/**
+  /**
    * Record a blind for next exhibit.
    */
-  recordBlind(seat: number, type: BlindType, amount: number): void;  
+  recordBlind(seat: number, type: BlindType, amount: number): void;
 
   /**
    * Record pocket cards for next exhibit.
@@ -72,10 +72,10 @@ export default interface Curator {
    */
   recordAction(seat: number, type: ActionType, amount?: number): void;
 
-/**
+  /**
    * Record an action for next exhibit (Note: This must be called after arrange)
    */
-  recordAction(seat: number, type: ActionType, amount?: number): void;  
+  recordAction(seat: number, type: ActionType, amount?: number): void;
 
   /**
    * Collect board cards for next exhibit.

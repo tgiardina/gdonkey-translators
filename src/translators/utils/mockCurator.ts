@@ -12,7 +12,7 @@ export default ({
   activateSeat: jest.fn(),
   activateMissedBlind: jest.fn(),
   arrangeGame: jest.fn(),
-  recordBlind: jest.fn(),  
+  recordBlind: jest.fn(),
   recordPocket: jest.fn(),
   recordAction: jest.fn(),
   collectBoard: jest.fn(),

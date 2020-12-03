@@ -3,4 +3,4 @@ enum BlindType {
   PostBlind = "PostBlind",
 }
 
-export default BlindType
+export default BlindType;
