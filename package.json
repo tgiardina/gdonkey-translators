@@ -1,5 +1,7 @@
 {
   "private": true,
+  "name": "gdonkey-translators",
+  "main": "src/index.ts",
   "scripts": {
     "test": "jest --coverage",
     "format": "prettier --write src tests",
