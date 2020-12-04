@@ -1,9 +1,10 @@
 {
-  "private": true,
   "name": "gdonkey-translators",
-  "main": "src/index.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
     "test": "jest --coverage",
+    "build": "tsc",
     "format": "prettier --write src tests",
     "lint": "eslint src tests",
     "mutate": "stryker run",
