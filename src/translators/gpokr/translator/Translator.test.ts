@@ -1,4 +1,4 @@
-import { ActionType, BlindType } from "../../../enums";
+import { ActionType, BlindSize } from "../../../enums";
 import { mockCurator } from "../../utils";
 import Translator from "./";
 import { GameEvent, GameEventId } from "../types";
@@ -91,11 +91,11 @@ describe("translate function", () => {
     expect(mockCurator.activateSeat).toBeCalledWith(5);
     expect(mockCurator.identifyBlind).toBeCalledTimes(2);
     expect(mockCurator.identifyBlind).toBeCalledWith(
-      BlindType.Small,
+      BlindSize.Small,
       gameObject.smallblind
     );
     expect(mockCurator.identifyBlind).toBeCalledWith(
-      BlindType.Big,
+      BlindSize.Big,
       gameObject.bigblind
     );
   });

@@ -1,6 +1,6 @@
 enum BlindType {
-  Big = "Big",
-  Small = "Small",
+  Donate = "Donate",
+  PostBlind = "PostBlind",
 }
 
 export default BlindType;

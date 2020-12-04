@@ -1,4 +1,4 @@
-import { ActionType, BlindType } from "../enums";
+import { ActionType, BlindSize, BlindType } from "../enums";
 import { Card } from "./";
 
 export default interface Curator {
@@ -20,7 +20,7 @@ export default interface Curator {
   /**
    * Overwrite the blind size.
    */
-  identifyBlind(type: BlindType, amount: number): void;
+  identifyBlind(type: BlindSize, amount: number): void;
 
   /**
    * Overwrite player at given seat. (Note: if `config.isAnon: true`, name will be ignored. Otherwise, it is required.)
@@ -58,9 +58,19 @@ export default interface Curator {
   arrangeGame(): void;
 
   /**
+   * Record a blind for next exhibit.
+   */
+  recordBlind(seat: number, type: BlindType, amount: number): void;
+
+  /**
    * Record pocket cards for next exhibit.
    */
   recordPocket(seat: number, card1: Card, card2: Card): void;
+
+  /**
+   * Record an action for next exhibit (Note: This must be called after arrange)
+   */
+  recordAction(seat: number, type: ActionType, amount?: number): void;
 
   /**
    * Record an action for next exhibit (Note: This must be called after arrange)
@@ -75,5 +85,5 @@ export default interface Curator {
   /**
    * Present the current game.
    */
-  exhibitGame(): void;
+  exhibitGame(): Promise<void>;
 }

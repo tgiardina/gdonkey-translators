@@ -1,4 +1,4 @@
-import { ActionType, BlindType } from "../../../enums";
+import { ActionType, BlindSize, BlindType } from "../../../enums";
 import { mockCurator } from "../../utils";
 import Translator from "./";
 import { GameEvent, GameEventId } from "../types";
@@ -31,9 +31,12 @@ describe("translate function", () => {
       ...info,
     });
     expect(mockCurator.startNewProject).toBeCalledTimes(1);
+    expect(mockCurator.identifyPlayer).toBeCalledTimes(9);
+    for (let seat = 0; seat < 9; seat++)
+      expect(mockCurator.identifyPlayer).toBeCalledWith(seat);
     expect(mockCurator.identifyBlind).toBeCalledTimes(2);
-    expect(mockCurator.identifyBlind).toBeCalledWith(BlindType.Big, 5);
-    expect(mockCurator.identifyBlind).toBeCalledWith(BlindType.Small, 2);
+    expect(mockCurator.identifyBlind).toBeCalledWith(BlindSize.Big, 5);
+    expect(mockCurator.identifyBlind).toBeCalledWith(BlindSize.Small, 2);
   });
 
   it("should translate Start correctly", () => {
@@ -127,8 +130,8 @@ describe("translate function", () => {
       pid: GameEventId.Blind,
       ...blind,
     });
-    expect(mockCurator.recordAction).toBeCalledTimes(1);
-    expect(mockCurator.recordAction).toBeCalledWith(6, ActionType.PostBlind, 2);
+    expect(mockCurator.recordBlind).toBeCalledTimes(1);
+    expect(mockCurator.recordBlind).toBeCalledWith(6, BlindType.PostBlind, 2);
   });
 
   it("should translate Blind Missed correctly", () => {
@@ -137,9 +140,9 @@ describe("translate function", () => {
       pid: GameEventId.Blind,
       ...blind,
     });
-    expect(mockCurator.recordAction).toBeCalledTimes(2);
-    expect(mockCurator.recordAction).toBeCalledWith(7, ActionType.PostBlind, 5);
-    expect(mockCurator.recordAction).toBeCalledWith(7, ActionType.Donate, 2);
+    expect(mockCurator.recordBlind).toBeCalledTimes(2);
+    expect(mockCurator.recordBlind).toBeCalledWith(7, BlindType.PostBlind, 5);
+    expect(mockCurator.recordBlind).toBeCalledWith(7, BlindType.Donate, 2);
   });
 
   it("should translate Pockets correctly", () => {

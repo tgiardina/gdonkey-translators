@@ -1,4 +1,4 @@
-import { ActionType, BlindType } from "../../../enums";
+import { ActionType, BlindSize, BlindType } from "../../../enums";
 import { Card, Curator } from "../../../interfaces";
 import { GameEvent, GameEventId, gameEvent } from "../types";
 
@@ -17,6 +17,7 @@ export default class Translator {
     const id = event.pid;
     if (id === GameEventId.GameType) {
       this.curator.startNewProject();
+      this.initPlayers();
       this.translateGameType(<gameEvent.GameType>event);
     } else if (id === GameEventId.Start) {
       this.translateStart(<gameEvent.Start>event);
@@ -48,6 +49,12 @@ export default class Translator {
     }
   }
 
+  private initPlayers(): void {
+    for (let seat = 0; seat < 9; seat++) {
+      this.curator.identifyPlayer(seat);
+    }
+  }
+
   private translateAction(event: gameEvent.Action): void {
     const type =
       event.btn === 1024
@@ -73,15 +80,15 @@ export default class Translator {
   }
 
   private translateBlind(event: gameEvent.Blind): void {
-    this.curator.recordAction(
+    this.curator.recordBlind(
       translateSeat(event.seat),
-      ActionType.PostBlind,
+      BlindType.PostBlind,
       event.bet
     );
     if (event.dead)
-      this.curator.recordAction(
+      this.curator.recordBlind(
         translateSeat(event.seat),
-        ActionType.Donate,
+        BlindType.Donate,
         event.dead
       );
   }
@@ -99,8 +106,8 @@ export default class Translator {
   }
 
   private translateGameType(event: gameEvent.GameType): void {
-    this.curator.identifyBlind(BlindType.Big, event.bblind);
-    this.curator.identifyBlind(BlindType.Small, event.sblind);
+    this.curator.identifyBlind(BlindSize.Big, event.bblind);
+    this.curator.identifyBlind(BlindSize.Small, event.sblind);
   }
 
   private translatePocket(event: gameEvent.Pocket): void {

@@ -10,6 +10,6 @@ interface StaticTranslator<T> {
 
 export default interface Bundle<T> {
   config: Config;
-  parse(event: string): T;
+  parse(event: string): T[];
   Translator: StaticTranslator<T>;
 }

@@ -1,4 +1,4 @@
-import { ActionType, BlindType } from "../../../enums";
+import { ActionType, BlindSize } from "../../../enums";
 import { Card, Curator } from "../../../interfaces";
 import { GameEvent, GameEventId, gameEvent } from "../types";
 
@@ -53,8 +53,8 @@ export default class Translator {
   }
 
   private translateBlinds(event: gameEvent.Start): void {
-    this.curator.identifyBlind(BlindType.Small, event.smallblind);
-    this.curator.identifyBlind(BlindType.Big, event.bigblind);
+    this.curator.identifyBlind(BlindSize.Small, event.smallblind);
+    this.curator.identifyBlind(BlindSize.Big, event.bigblind);
   }
 
   private translateButton(event: gameEvent.Start): void {

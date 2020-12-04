@@ -1,4 +1,4 @@
-import translators from "../src";
+import { casinos } from "../src";
 import { Curator } from "../src/interfaces";
 
 const mockCurator = <Curator>(<unknown>{
@@ -7,7 +7,7 @@ const mockCurator = <Curator>(<unknown>{
 
 describe("bovada integration", () => {
   it("should successfully translate an event", () => {
-    const { config, parse, Translator } = translators.bovada;
+    const { config, parse, Translator } = casinos.bovada;
     const translator = new Translator(mockCurator);
     const parsedEvents = <unknown[]>(
       parse(`36|{"seat":8,"pid":"CO_DEALER_SEAT"}`)

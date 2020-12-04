@@ -1,4 +1,4 @@
-import translators from "../src";
+import { casinos } from "../src";
 import { ActionType } from "../src/enums";
 import { Curator } from "../src/interfaces";
 
@@ -8,7 +8,7 @@ const mockCurator = <Curator>(<unknown>{
 
 describe("gpokr integration", () => {
   it("should successfully translate an event", () => {
-    const { config, parse, Translator } = translators.gpokr;
+    const { config, parse, Translator } = casinos.gpokr;
     const translator = new Translator(mockCurator);
     const parsedEvents = <unknown[]>parse(
       JSON.stringify({
