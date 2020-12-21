@@ -11,6 +11,13 @@ export interface Action extends EmptyGameEvent {
   seat: number;
 }
 
+export interface Actions extends EmptyGameEvent {
+  firstSeat: number;
+  btn: number[];
+  bet: number[];
+  raise: number[];
+}
+
 export interface Blind extends EmptyGameEvent {
   bet: number;
   dead: number;
@@ -36,6 +43,8 @@ export interface GameId extends EmptyGameEvent {
 export interface GameType extends EmptyGameEvent {
   bblind: number;
   sblind: number;
+  gameType: number;
+  gameType2: number;
 }
 
 export interface Pocket extends EmptyGameEvent {
@@ -65,6 +74,11 @@ export interface Sit extends EmptyGameEvent {
 export interface Stack extends EmptyGameEvent {
   cash: number;
   seat: number;
+}
+
+export interface InitZone extends EmptyGameEvent {
+  account: number[];
+  mySeat: number[];
 }
 
 export interface Start extends EmptyGameEvent {

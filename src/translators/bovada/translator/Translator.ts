@@ -1,4 +1,4 @@
-import { ActionType, BlindSize, BlindType } from "../../../enums";
+import { ActionType, BlindSize, BlindType, GameType } from "../../../enums";
 import { Card, Curator } from "../../../interfaces";
 import { GameEvent, GameEventId, gameEvent } from "../types";
 
@@ -23,6 +23,9 @@ export default class Translator {
       this.translateStart(<gameEvent.Start>event);
     } else if (id === GameEventId.GameId) {
       this.translateGameId(<gameEvent.GameId>event);
+    } else if (id === GameEventId.InitZone) {
+      this.translateStacks(<gameEvent.InitZone>event);
+      this.translateUser(<gameEvent.InitZone>event);
     } else if (id === GameEventId.Sit) {
       this.translateSit(<gameEvent.Sit>event);
     } else if (id === GameEventId.Stack) {
@@ -37,6 +40,8 @@ export default class Translator {
       this.curator.arrangeGame();
     } else if (id === GameEventId.Action) {
       this.translateAction(<gameEvent.Action>event);
+    } else if (id === GameEventId.Actions) {
+      this.translateActions(<gameEvent.Actions>event);
     } else if (id === GameEventId.Flop) {
       this.translateFlop(<gameEvent.Flop>event);
     } else if (id === GameEventId.TurnRiver) {
@@ -55,18 +60,45 @@ export default class Translator {
     }
   }
 
-  private translateAction(event: gameEvent.Action): void {
+  private buildAction(
+    seat: number,
+    typeCode: number,
+    bet: number,
+    raise: number
+  ): void {
     const type =
-      event.btn === 1024
+      typeCode === 1024
         ? ActionType.Fold
-        : [64, 256].includes(event.btn)
+        : [64, 256].includes(typeCode)
         ? ActionType.CheckCall
         : ActionType.BetRaise;
     if (type === ActionType.BetRaise) {
-      const amount = event.raise || event.bet;
-      this.curator.recordAction(translateSeat(event.seat), type, amount);
+      const amount = raise || bet;
+      this.curator.recordAction(seat, type, amount);
     } else {
-      this.curator.recordAction(translateSeat(event.seat), type);
+      this.curator.recordAction(seat, type);
+    }
+  }
+
+  private translateAction(event: gameEvent.Action): void {
+    this.buildAction(
+      translateSeat(event.seat),
+      event.btn,
+      event.bet,
+      event.raise
+    );
+  }
+
+  private translateActions(event: gameEvent.Actions): void {
+    for (let i = 0; i < 9; i++) {
+      const seat = (i + translateSeat(event.firstSeat)) % 9;
+      if (!event.btn[seat]) continue;
+      this.buildAction(
+        seat,
+        event.btn[seat],
+        event.bet[seat],
+        event.raise[seat]
+      );
     }
   }
 
@@ -106,6 +138,9 @@ export default class Translator {
   }
 
   private translateGameType(event: gameEvent.GameType): void {
+    this.curator.identifyGameType(
+      event.gameType2 ? GameType.Cash : GameType.Zone
+    );
     this.curator.identifyBlind(BlindSize.Big, event.bblind);
     this.curator.identifyBlind(BlindSize.Small, event.sblind);
   }
@@ -155,5 +190,9 @@ export default class Translator {
 
   private translateTurnRiver(event: gameEvent.TurnRiver): void {
     this.curator.collectBoard(translateCard(event.card));
+  }
+
+  private translateUser(event: gameEvent.InitZone): void {
+    this.curator.identifyUser(translateSeat(event.mySeat[0]));
   }
 }

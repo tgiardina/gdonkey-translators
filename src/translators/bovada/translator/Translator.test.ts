@@ -1,4 +1,4 @@
-import { ActionType, BlindSize, BlindType } from "../../../enums";
+import { ActionType, BlindSize, BlindType, GameType } from "../../../enums";
 import { mockCurator } from "../../utils";
 import Translator from "./";
 import { GameEvent, GameEventId } from "../types";
@@ -24,8 +24,8 @@ describe("translate function", () => {
     );
   });
 
-  it("should translate GameType correctly", () => {
-    const info = { bblind: 5, sblind: 2 };
+  it("should translate Cash GameType correctly", () => {
+    const info = { gameType2: 1, bblind: 5, sblind: 2 };
     translator.translate({
       pid: GameEventId.GameType,
       ...info,
@@ -37,6 +37,34 @@ describe("translate function", () => {
     expect(mockCurator.identifyBlind).toBeCalledTimes(2);
     expect(mockCurator.identifyBlind).toBeCalledWith(BlindSize.Big, 5);
     expect(mockCurator.identifyBlind).toBeCalledWith(BlindSize.Small, 2);
+    expect(mockCurator.identifyGameType).toBeCalledWith(GameType.Cash);
+  });
+
+  it("should translate Zone GameType correctly", () => {
+    const info = { gameType2: 0, bblind: 5, sblind: 2 };
+    translator.translate({
+      pid: GameEventId.GameType,
+      ...info,
+    });
+    expect(mockCurator.identifyGameType).toBeCalledWith(GameType.Zone);
+  });
+
+  it("should translate InitZone correctly", () => {
+    const stacks = {
+      account: [150, 250, 531, 0, 0, 0, 0, 0, 490],
+      mySeat: [1],
+    };
+    translator.translate({
+      pid: GameEventId.InitZone,
+      ...stacks,
+    });
+    expect(mockCurator.identifyStack).toBeCalledTimes(4);
+    expect(mockCurator.identifyStack).toBeCalledWith(0, 150);
+    expect(mockCurator.identifyStack).toBeCalledWith(1, 250);
+    expect(mockCurator.identifyStack).toBeCalledWith(2, 531);
+    expect(mockCurator.identifyStack).toBeCalledWith(8, 490);
+    expect(mockCurator.identifyUser).toBeCalledTimes(1);
+    expect(mockCurator.identifyUser).toBeCalledWith(0);
   });
 
   it("should translate Start correctly", () => {
@@ -217,6 +245,30 @@ describe("translate function", () => {
     });
     expect(mockCurator.recordAction).toBeCalledTimes(1);
     expect(mockCurator.recordAction).toBeCalledWith(8, ActionType.Fold);
+  });
+
+  it("should translate multiple actions correctly", () => {
+    const actions = {
+      firstSeat: 4,
+      btn: [0, 0, 1024, 256, 0, 0, 0, 0, 0],
+      bet: [],
+      raise: [],
+    };
+    translator.translate({
+      pid: GameEventId.Actions,
+      ...actions,
+    });
+    const j = <jest.Mock>{};
+    j.mock;
+    expect(mockCurator.recordAction).toBeCalledTimes(2);
+    expect((<jest.Mock>mockCurator.recordAction).mock.calls[0]).toEqual([
+      3,
+      ActionType.CheckCall,
+    ]);
+    expect((<jest.Mock>mockCurator.recordAction).mock.calls[1]).toEqual([
+      2,
+      ActionType.Fold,
+    ]);
   });
 
   it("should translate Flop correctly", () => {

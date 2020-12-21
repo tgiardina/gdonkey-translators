@@ -1,4 +1,4 @@
-import { ActionType, BlindSize, BlindType } from "../enums";
+import { ActionType, BlindSize, BlindType, GameType } from "../enums";
 import { Card } from "./";
 
 export default interface Curator {
@@ -16,6 +16,11 @@ export default interface Curator {
    * Overwrite the game id.
    */
   identifyGame(id: string): void;
+
+  /**
+   * Overwrite the game type.
+   */
+  identifyGameType(type: GameType): void;
 
   /**
    * Overwrite the blind size.

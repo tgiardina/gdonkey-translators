@@ -1,4 +1,4 @@
-import { ActionType, BlindSize } from "../../../enums";
+import { ActionType, BlindSize, GameType } from "../../../enums";
 import { Card, Curator } from "../../../interfaces";
 import { GameEvent, GameEventId, gameEvent } from "../types";
 
@@ -17,6 +17,7 @@ export default class Translator {
     const id = event.typeName;
     if (id === GameEventId.Init) {
       this.curator.startNewProject();
+      this.curator.identifyGameType(GameType.Cash);
       this.translatePlayers(<gameEvent.Init>event);
     } else if (id === GameEventId.Start) {
       this.curator.startNewGame();

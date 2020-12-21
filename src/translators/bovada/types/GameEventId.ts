@@ -1,11 +1,13 @@
 enum GameEventId {
   Action = "CO_SELECT_INFO",
+  Actions = "CO_SELECT_SPEED_INFO",
   Blind = "CO_BLIND_INFO",
   Button = "CO_DEALER_SEAT",
   FinalStacks = "CO_RESULT_INFO",
   Flop = "CO_BCARD3_INFO",
   GameId = "PLAY_STAGE_INFO",
   GameType = "CO_OPTION_INFO",
+  InitZone = "CO_TABLE_INFO",
   Pocket = "CO_PCARD_INFO",
   Pockets = "CO_CARDTABLE_INFO",
   Sit = "PLAY_SEAT_INFO",

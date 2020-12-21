@@ -6,6 +6,7 @@ export default ({
   identifyBlind: jest.fn(),
   identifyButton: jest.fn(),
   identifyGame: jest.fn(),
+  identifyGameType: jest.fn(),
   identifyPlayer: jest.fn(),
   identifyStack: jest.fn(),
   identifyUser: jest.fn(),
