@@ -7,7 +7,7 @@ Shims that translate complex site-dependent events into simple method calls that
 
 Submit an issue with the site's URL, and we will add support ASAP! 
 
-We also welcome PRs! Submit an issue, code up your shim, and we will included it in the next release of GDonkey! For more development advice, see [the development guide](#development-guide)
+We also welcome PRs! Submit an issue, code up your shim, and we will include it in the next release of GDonkey! For more development advice, see [the development guide](#development-guide)
 
 ### Development Guide
 
@@ -34,7 +34,7 @@ Before you start, you should check out the [`Curator` interface](https://github.
 
 #### Understand the site
 
-Before developing your translator, you will need to have a good understanding of how the site works. For example, how does the site tell you when someone bets? It sends a message from its servers to your browser. We need to figure out what those messages are and how they're being sent.
+Before developing your translator, you will need to have a good understanding of how the casino's site works. For example, how does the site tell you when someone bets? It sends a message from its servers to your browser. We need to figure out what those messages are and how they're being sent.
 
 Fortunately, GDonkey has a simple debugger that allows us to sniff these messages. Go to [GDonkey Debugger](https://github.com/tgiardina/gdonkey-debugger) and set it up for the site you're interested in. Using the debugger, try to answer these questions:
 
@@ -66,7 +66,7 @@ Now that you know how the site you're interested in communicates, let's talk abo
 4. `Translator` - A class that implements a `translate` method. 
    - `Translator`'s constructor must take one and only param: the `Curator`. 
    - `translate` should take an event object and make the appropriate calls to `this.curator`.
-   - `Translator` should contain no state (other than `this.curator`.
+   - `Translator` should contain no state (other than `this.curator`).
 
 
 
